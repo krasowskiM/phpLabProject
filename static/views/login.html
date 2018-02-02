@@ -1,0 +1,33 @@
+<div class="panel text-center panel-heading">
+    <h4 class="">Login panel</h4>
+</div>
+
+<div class="panel panel-body" ng-controller="loginController">
+    <form role="form" class="form-inline" ng-submit="login()">
+        <table>
+            <tr>
+                <td><input type="email" class="form-control" name="email" ng-model="credentials.email"
+                           placeholder="Email"/></td>
+            </tr>
+            <tr>
+                <td><input type="password" class="form-control" name="password" ng-model="credentials.password"
+                           placeholder="Password"/></td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="btn btn-default" type="submit">Log in</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br>
+    <div>
+        {{response}}
+    </div>
+    <div class="panel panel-danger" ng-show="loginError !== null">
+        <div id="warningStatus" class="panel-heading" >An error occured!</div>
+        <div class="panel-body">
+            {{loginError.message}}
+        </div>
+    </div>
+</div>

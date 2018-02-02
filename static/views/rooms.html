@@ -1,0 +1,28 @@
+<div class="panel text-center panel-heading ">
+    <h4>{{headingTitle}}</h4>
+</div>
+<div class="panel panel-body">
+    Floor
+    <br>
+    <div class="col-sm-1">
+        <div class="row" ng-repeat="floorNumber in condignation">
+            <a class="btn btn-default" ng-click="showFloor(floorNumber)">{{floorNumber}}</a>
+        </div>
+    </div>
+    <div class="col-sm-11" ng-show="rooms !== undefined">
+        <table>
+            <tr>
+                <th class="col-sm-2 text-center">Room number</th>
+                <th class="col-sm-2 text-center">Number of beds</th>
+                <th class="col-sm-2 text-center">Status</th>
+                <th class="col-sm-2 text-center">Action</th>
+            </tr>
+            <tr ng-repeat="room in rooms">
+                <td class="col-sm-2 text-center">{{room.room_number}}</td>
+                <td class="col-sm-2 text-center">{{room.number_of_beds}}</td>
+                <td class="col-sm-2 text-center">{{room.status.toLowerCase()}}</td>
+                <td class="col-sm-2 text-center"><a class="btn btn-default">Reservation</a></td>
+            </tr>
+        </table>
+    </div>
+</div>

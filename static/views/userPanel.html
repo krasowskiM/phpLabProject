@@ -1,0 +1,14 @@
+<div ng-show="isLoggedIn">
+    <div class="panel-heading">
+        <h4 class="pull-left">{{headingTitle}}</h4>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-body" ng-show="userPanelTO != null">
+        <div id="navRow" class="row text-center">
+            <a class="btn btn-success" ui-sref=".rooms">See the rooms</a>
+            <a class="btn btn-success" ui-sref=".reservations">See your reservations</a>
+        </div>
+        <br>
+        <div class="panel panel-default" ui-view></div>
+    </div>
+</div>
