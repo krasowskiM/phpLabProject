@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Wersja serwera:               10.2.12-MariaDB - mariadb.org binary distribution
+-- Wersja serwera:               10.2.9-MariaDB - mariadb.org binary distribution
 -- Serwer OS:                    Win64
 -- HeidiSQL Wersja:              9.4.0.5125
 -- --------------------------------------------------------
@@ -26,6 +26,20 @@ CREATE TABLE IF NOT EXISTS `history` (
 DELETE FROM `history`;
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
+
+-- Zrzut struktury tabela hotel_db.hotel
+CREATE TABLE IF NOT EXISTS `hotel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `num_of_floors` int(30) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Zrzucanie danych dla tabeli hotel_db.hotel: ~1 rows (około)
+DELETE FROM `hotel`;
+/*!40000 ALTER TABLE `hotel` DISABLE KEYS */;
+INSERT INTO `hotel` (`id`, `num_of_floors`) VALUES
+	(1, 5);
+/*!40000 ALTER TABLE `hotel` ENABLE KEYS */;
 
 -- Zrzut struktury tabela hotel_db.reservations
 CREATE TABLE IF NOT EXISTS `reservations` (
@@ -58,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Zrzucanie danych dla tabeli hotel_db.rooms: ~3 rows (około)
+-- Zrzucanie danych dla tabeli hotel_db.rooms: ~4 rows (około)
 DELETE FROM `rooms`;
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
 INSERT INTO `rooms` (`id`, `status`, `number_of_beds`, `floor`, `room_number`) VALUES
@@ -67,6 +81,21 @@ INSERT INTO `rooms` (`id`, `status`, `number_of_beds`, `floor`, `room_number`) V
 	(3, 'RESERVED', 2, 1, 13),
 	(4, 'FREE', 2, 2, 23);
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
+
+-- Zrzut struktury tabela hotel_db.sec
+CREATE TABLE IF NOT EXISTS `sec` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `hash` varchar(150) NOT NULL DEFAULT '0',
+  `mode` varchar(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Zrzucanie danych dla tabeli hotel_db.sec: ~0 rows (około)
+DELETE FROM `sec`;
+/*!40000 ALTER TABLE `sec` DISABLE KEYS */;
+INSERT INTO `sec` (`id`, `hash`, `mode`) VALUES
+	(1, 'aaa', 'aes-128-gcm');
+/*!40000 ALTER TABLE `sec` ENABLE KEYS */;
 
 -- Zrzut struktury tabela hotel_db.users
 CREATE TABLE IF NOT EXISTS `users` (
