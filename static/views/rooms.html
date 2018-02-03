@@ -21,7 +21,9 @@
                 <td class="col-sm-2 text-center">{{room.room_number}}</td>
                 <td class="col-sm-2 text-center">{{room.number_of_beds}}</td>
                 <td class="col-sm-2 text-center">{{room.status.toLowerCase()}}</td>
-                <td class="col-sm-2 text-center"><a class="btn btn-default">Reservation</a></td>
+                <td class="col-sm-2 text-center">
+                    <a class="btn btn-default" ng-show="room.status === 'FREE'" ng-submit="reserve(room.room_number)">Reservation</a>
+                </td>
             </tr>
         </table>
     </div>

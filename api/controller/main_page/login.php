@@ -3,7 +3,7 @@
 header("Content-Type: application/json; charset=UTF-8");
 include $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/service/userService.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/dto/ApiError.php';
-
+session_start();
 
 $data = json_decode(file_get_contents("php://input"));
 if ($data == null) {

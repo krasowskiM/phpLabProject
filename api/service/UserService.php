@@ -3,6 +3,7 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/db/DbConnection.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/model/User.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/dto/ApiError.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/service/SecService.php';
 
 class UserService {
 
@@ -17,6 +18,7 @@ class UserService {
         } else {
             $loginSuccess = password_verify($password, $userData['password']);
             if ($loginSuccess) {
+                $this->issueCookie($userData);
                 $response = new stdClass();
                 $response->message = "OK";
 //                w razie jakbym miał kiedyś ochotę to dorobię więcej
@@ -72,6 +74,34 @@ class UserService {
         $statement->bindParam('loginDate', $loginDate);
         $statement->bindParam('email', $email, PDO::PARAM_STR);
         $statement->execute();
+    }
+
+    private function issueCookie($userData) {
+        $status = $userData['status'];
+        if ($status == 'USER') {
+            $encryptedMail = $this->encryptMail($this->safeEmail);
+            setcookie('user', $encryptedMail);
+        }
+    }
+
+    private function encryptMail($email) {
+        $secData = SecService::getSecData();
+        $cipher = $secData['mode'];
+        $initVectorLength = openssl_cipher_iv_length($cipher);
+        $initVector = openssl_random_pseudo_bytes($initVectorLength);
+        setcookie('rand', $initVector);
+        $key = $secData['hash'];
+        
+        return openssl_encrypt($email, $cipher, $key, 0, $initVector);
+    }
+
+    public static function decryptUser() {
+        $secData = SecService::getSecData();
+        $cipher = $secData['mode'];
+        $key = $secData['hash'];
+        $data = $_COOKIE['user'];
+        $initVector = $_COOKIE['rand'];
+        return openssl_decrypt($data, $cipher, $key, 0, $initVector);
     }
 
 }

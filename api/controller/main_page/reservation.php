@@ -1,8 +1,8 @@
 <?php
+header("Content-Type: application/json; charset=UTF-8");
+include $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/service/ReservationService.php';
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+$roomNumber = $_GET['room'];
+$reservationService = new ReservationService();
 
+echo $reservationService->reserve($roomNumber);

@@ -1,9 +1,8 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
-include $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/service/roomService.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/service/RoomService.php';
 
 $floorNumber = $_GET['number'];
-$roomService = new roomService();
-$rooms = $roomService->getFloor($floorNumber);
+$roomService = new RoomService();
 
-echo $rooms;
+echo $roomService->getFloor($floorNumber);

@@ -12,4 +12,12 @@ hotelAppModule.controller('roomController', function ($scope, $http) {
                 }
         );
     };
+
+    $scope.reserve = function(roomNumber){
+        $http.post('api/controller/main_page/reservation.php?room=' + roomNumber).then(
+                function (response) {
+                    $scope.reservationSuccess = true;
+                }
+        );
+    };
 });
