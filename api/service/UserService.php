@@ -6,6 +6,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/dto/ApiError.ph
 
 class UserService {
 
+    private $safeEmail;
+
     public function login($email, $password) {
         $userData = $this->getUserData($email);
         if ($userData == null) {
@@ -18,7 +20,7 @@ class UserService {
                 $response = new stdClass();
                 $response->message = "OK";
 //                w razie jakbym miał kiedyś ochotę to dorobię więcej
-//                $this->saveLastLogin($email);
+//                $this->saveLastLogin($this->safeEmail);
                 return json_encode($response);
             } else {
                 $apiError = new stdClass();
@@ -30,10 +32,13 @@ class UserService {
 
     public function register($email, $password) {
         $registerQuery = "INSERT INTO users(email, password, status) VALUES (:email, :password, 'USER');";
+        $xssSafeEmail = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+        $xssSafePassword = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
         $pdo = DBConnection::getInstance()->getConnection();
         $query = $pdo->prepare($registerQuery);
         $execute = $query->execute(array(
-            ":email" => $email, ":password" => password_hash($password, PASSWORD_BCRYPT)
+            ":email" => $xssSafeEmail,
+            ":password" => password_hash($xssSafePassword, PASSWORD_BCRYPT)
         ));
         if ($execute) {
             $response = new stdClass();
@@ -48,9 +53,11 @@ class UserService {
 
     private function getUserData($email) {
         $loginQuery = "SELECT email, password, status FROM users WHERE email = :email";
+        $xssSafeEmail = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+        $this->safeEmail = $xssSafeEmail;
         $pdo = DBConnection::getInstance()->getConnection();
         $statement = $pdo->prepare($loginQuery);
-        $statement->bindParam(':email', $email, PDO::PARAM_STR);
+        $statement->bindParam(':email', $xssSafeEmail, PDO::PARAM_STR);
         $execute = $statement->execute();
         if ($execute) {
             return $statement->fetch(PDO::FETCH_ASSOC);

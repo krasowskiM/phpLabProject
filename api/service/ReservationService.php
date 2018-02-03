@@ -1,4 +1,5 @@
 <?php
+
 include $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/db/DbConnection.php';
 
 class ReservationService {
@@ -37,9 +38,16 @@ class ReservationService {
             return json_encode($apiError);
         }
     }
-    
-    function getReservations($userId){
+
+    function getReservations($userId) {
         $sql = "SELECT * FROM reservations WHERE user_id = :userId";
+        $pdo = DBConnection::getInstance()->getConnection();
+        $statement = $pdo->prepare($sql);
+        $statement->bindParam(':userId', $userId);
+        $execute = $statement->execute();
+        if ($execute) {
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
     }
 
 }
