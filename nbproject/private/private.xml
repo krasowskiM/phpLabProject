@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/room-reservations/api/session/sessionHolder.php</file>
-            <file>file:/C:/xampp/htdocs/room-reservations/api/db/DbConnection.php</file>
-            <file>file:/C:/xampp/htdocs/room-reservations/.gitignore/.gitignore</file>
+            <file>file:/E:/xampp/htdocs/room-reservations/api/service/UserService.php</file>
+            <file>file:/E:/xampp/htdocs/room-reservations/api/db/DbConnection.php</file>
+            <file>file:/E:/xampp/htdocs/room-reservations/api/service/SecService.php</file>
+            <file>file:/E:/xampp/htdocs/room-reservations/static/views/rooms.html</file>
+            <file>file:/E:/xampp/htdocs/room-reservations/static/js/controller/userPanelController.js</file>
+            <file>file:/E:/xampp/htdocs/room-reservations/api/controller/main_page/floor.php</file>
+            <file>file:/E:/xampp/htdocs/room-reservations/static/js/controller/roomController.js</file>
+            <file>file:/E:/xampp/htdocs/room-reservations/api/controller/main_page/login.php</file>
+            <file>file:/E:/xampp/htdocs/room-reservations/api/controller/main_page/user.php</file>
         </group>
     </open-files>
 </project-private>

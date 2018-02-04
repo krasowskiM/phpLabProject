@@ -18,7 +18,7 @@ class UserService {
         } else {
             $loginSuccess = password_verify($password, $userData['password']);
             if ($loginSuccess) {
-                $this->issueCookie($userData);
+                $this->saveUser($userData);
                 $response = new stdClass();
                 $response->message = "OK";
 //                w razie jakbym miał kiedyś ochotę to dorobię więcej
@@ -76,11 +76,11 @@ class UserService {
         $statement->execute();
     }
 
-    private function issueCookie($userData) {
+    private function saveUser($userData) {
         $status = $userData['status'];
         if ($status == 'USER') {
             $encryptedMail = $this->encryptMail($this->safeEmail);
-            setcookie('user', $encryptedMail);
+            $_SESSION['user'] = $encryptedMail;
         }
     }
 
@@ -89,9 +89,9 @@ class UserService {
         $cipher = $secData['mode'];
         $initVectorLength = openssl_cipher_iv_length($cipher);
         $initVector = openssl_random_pseudo_bytes($initVectorLength);
-        setcookie('rand', $initVector);
+        $_SESSION['rand'] = $initVector;
         $key = $secData['hash'];
-        
+
         return openssl_encrypt($email, $cipher, $key, 0, $initVector);
     }
 
@@ -99,8 +99,8 @@ class UserService {
         $secData = SecService::getSecData();
         $cipher = $secData['mode'];
         $key = $secData['hash'];
-        $data = $_COOKIE['user'];
-        $initVector = $_COOKIE['rand'];
+        $data = $_SESSION['user'];
+        $initVector = $_SESSION['rand'];
         return openssl_decrypt($data, $cipher, $key, 0, $initVector);
     }
 
