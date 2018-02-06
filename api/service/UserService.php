@@ -76,12 +76,10 @@ class UserService {
         $statement->execute();
     }
 
-    private function saveUser($userData) {
-        $status = $userData['status'];
-        if ($status == 'USER') {
-            $encryptedMail = $this->encryptMail($this->safeEmail);
-            $_SESSION['user'] = $encryptedMail;
-        }
+    private function saveUser() {
+//            TODO save encrypted email, I had problems
+//            $encryptedMail = $this->encryptMail($this->safeEmail);
+        $_SESSION['user'] = $this->safeEmail;
     }
 
     private function encryptMail($email) {
@@ -95,13 +93,8 @@ class UserService {
         return openssl_encrypt($email, $cipher, $key, 0, $initVector);
     }
 
-    public static function decryptUser() {
-        $secData = SecService::getSecData();
-        $cipher = $secData['mode'];
-        $key = $secData['hash'];
-        $data = $_SESSION['user'];
-        $initVector = $_SESSION['rand'];
-        return openssl_decrypt($data, $cipher, $key, 0, $initVector);
+    public static function getUserFromSession() {
+        return $data = $_SESSION['user'];
     }
 
 }

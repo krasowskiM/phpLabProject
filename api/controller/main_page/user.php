@@ -6,6 +6,6 @@ session_start();
 
 $userPanelTO = new stdClass();
 $userPanelTO->lastLoginDate = date('d-M-y h:m:s');
-$decryptedUser = UserService::decryptUser();
-$userPanelTO->user = $decryptedUser;
+$user = UserService::getUserFromSession();
+$userPanelTO->user = $user;
 echo json_encode($userPanelTO);

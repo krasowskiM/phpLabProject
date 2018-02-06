@@ -22,9 +22,15 @@
                 <td class="col-sm-2 text-center">{{room.number_of_beds}}</td>
                 <td class="col-sm-2 text-center">{{room.status.toLowerCase()}}</td>
                 <td class="col-sm-2 text-center">
-                    <a class="btn btn-default" ng-show="room.status === 'FREE'" ng-submit="reserve(room.room_number)">Reservation</a>
+                    <a class="btn btn-default" ng-show="room.status === 'FREE'" ng-click="reserve(room.room_number)">Reservation</a>
                 </td>
             </tr>
         </table>
+        <div class="alert alert-success" ng-show="reservationSuccess !== undefined && reservationSuccess">
+            Your reservation has been submitted.
+        </div>
+        <div class="alert alert-danger" ng-show="reservationSuccess !== undefined && !reservationSuccess">
+            There was a problem with your reservation. Please contact our staff.
+        </div>
     </div>
 </div>

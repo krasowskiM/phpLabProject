@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Wersja serwera:               10.2.9-MariaDB - mariadb.org binary distribution
+-- Wersja serwera:               10.2.12-MariaDB - mariadb.org binary distribution
 -- Serwer OS:                    Win64
 -- HeidiSQL Wersja:              9.4.0.5125
 -- --------------------------------------------------------
@@ -43,23 +43,25 @@ INSERT INTO `hotel` (`id`, `num_of_floors`) VALUES
 
 -- Zrzut struktury tabela hotel_db.reservations
 CREATE TABLE IF NOT EXISTS `reservations` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` enum('PENDING','ACCEPTED','CANCELED','CONFIRMED') NOT NULL,
   `user_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
   `date_of_rent` datetime NOT NULL,
   `date_of_confirm` datetime DEFAULT NULL,
-  `date_of_statement` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_of_statement` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_reservations_users` (`user_id`),
   KEY `FK_reservations_rooms` (`room_id`),
   CONSTRAINT `FK_reservations_rooms` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`),
   CONSTRAINT `FK_reservations_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Zrzucanie danych dla tabeli hotel_db.reservations: ~0 rows (około)
+-- Zrzucanie danych dla tabeli hotel_db.reservations: ~1 rows (około)
 DELETE FROM `reservations`;
 /*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
+INSERT INTO `reservations` (`id`, `status`, `user_id`, `room_id`, `date_of_rent`, `date_of_confirm`, `date_of_statement`) VALUES
+	(1, 'PENDING', 1, 1, '2018-02-06 19:08:57', NULL, NULL);
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 
 -- Zrzut struktury tabela hotel_db.rooms

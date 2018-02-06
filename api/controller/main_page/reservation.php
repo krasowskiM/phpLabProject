@@ -4,5 +4,5 @@ include $_SERVER['DOCUMENT_ROOT'] . '/room-reservations/api/service/ReservationS
 
 $roomNumber = $_GET['room'];
 $reservationService = new ReservationService();
-
-echo $reservationService->reserve($roomNumber);
+$reservationDate = date('Y-m-d H:i:s');
+echo $reservationService->reserve($roomNumber, $reservationDate);

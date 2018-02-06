@@ -48,4 +48,7 @@
         <div class="panel-heading" ng-show="error.cause != null">{{error.cause}}</div>
         <div class="panel-body">{{error.message}}</div>
     </div>
+    <div class="alert alert-success" ng-show="logoutMessage !== undefined">
+        {{logoutMessage}}
+    </div>
 </div>
